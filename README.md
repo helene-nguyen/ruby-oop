@@ -22,7 +22,18 @@ Hope it can help :)
 
   - Object Oriented Programming:
 
-    - Class : instance, methods, getters and setters
+    - Create a class & create a method
+    - Getter & Setter (or accessor and mutator)
+    - Private Methods
+    - Call private methods
+    - Change core method
+    - Comparison method
+    - Inheritance
+    - Modules
+    - Module in module and calling class
+    - Mixins and "included"
+    - Modules and extend
+    - Exceptions
 
 - [Some tips](#tips)
 
@@ -49,8 +60,12 @@ Hope it can help :)
    |  ├── example_1.rb
    |  ├── example_2.rb
    |  ├── example_3.rb
-   |  └── example_4.rb
-   └── inheritance.rb
+   |  ├── example_4.rb
+   |  └── example_5.rb
+   ├── extend.rb
+   ├── inheritance.rb
+   ├── mixins.rb
+   └── module.rb
 ```
 
 ## Requirements
@@ -74,7 +89,8 @@ make run_example FILE=example_1
 - example_1 : class & class variables
 - example_2 : self method
 - example_3 : self method, change core methods
-- example_4 : effective application
+- example_4 : effective application, raise exceptions
+- example_5 : modules
 
 ## Project
 
@@ -265,7 +281,7 @@ children = Children.new
 children.getParentMethod
 ```
 
-- modules
+- Modules
 
 Modules are not class, you cannot have inheritance.
 Create module can be used to classify your functionnalities.
@@ -299,7 +315,7 @@ puts Circle.perimeter(5)
 puts Circle::PI
 ```
 
-Module in module calling class
+- Module in module and calling class
 
 ```rb
 #~ import modules
