@@ -26,8 +26,6 @@ Hope it can help :)
 
 - [Some tips](#tips)
 
-- Useful resources :
-
 - [Sources](#sources)
 
 ## Tools and versions
@@ -267,6 +265,239 @@ children = Children.new
 children.getParentMethod
 ```
 
+- modules
+
+Modules are not class, you cannot have inheritance.
+Create module can be used to classify your functionnalities.
+
+Import the module
+
+```rb
+#~ import module
+# not in core
+require "date"
+
+# import module relative to the path, in core
+require_relative "inheritance"
+require_relative "./examples/example_4.rb"
+```
+
+Use the module
+
+```rb
+module Circle
+  PI = 3.1415
+
+  def self.perimeter(radius)
+    2 * PI * radius
+  end
+end
+
+puts Circle.perimeter(5)
+
+# Call the module property with namespace
+puts Circle::PI
+```
+
+Module in module calling class
+
+```rb
+#~ import modules
+require "date"
+require_relative "../module.rb"
+
+module Geometry
+  module Form
+    class Circle
+      def draw
+        puts "drawing"
+      end
+
+      def giveDate
+        puts Date.today
+      end
+    end
+
+    def self.givePerimeter(radius)
+        CirclePerimeter::perimeter(radius)
+    end
+  end
+end
+
+puts Geometry::Form::Circle.new.draw
+puts Geometry::Form::Circle.new.giveDate
+puts Geometry::Form.givePerimeter(5)
+```
+
+- Mixins and "included"
+
+```rb
+module Walk
+  def walk
+    puts "I walk !"
+  end
+
+  # display what's included in this module
+  def self.included(base)
+    puts base
+
+    def base.test
+        puts "This is a test"
+    end
+  end
+end
+
+module Swim
+  def swim(test)
+    puts "I'm a #{test} and I swim!"
+  end
+end
+
+class Human
+  include Walk
+end
+
+class Cat
+  include Walk
+end
+
+class Dolphin
+  include Swim
+end
+
+
+puts Human.new.walk # => I walk !
+puts Cat.new.walk # => I walk !
+puts Dolphin.new.swim("dolphin") # => I'm a dolphin and I swim!
+
+# can call the method self included
+Human.test # => This is a test
+```
+
+- Modules and extend
+
+```rb
+module A
+  def demo(name)
+    puts "Hello World, I'm #{name}!"
+  end
+
+  def self.extended(base)
+    puts "#{base.to_s} extend of module A"
+  end
+end
+
+class C
+
+  # get all methods of module A, available
+  extend A
+end
+
+C.demo("Bilbo")
+
+new_c = C.new
+# add this keyword to get the method of module A
+new_c.extend(A)
+new_c.demo("Coraline")
+
+new_c2 = C.new
+new_c2.demo("Harry") # => expected error
+```
+
+- Exceptions
+
+Raise exception : keyword "raise"
+
+With no error message
+
+```rb
+  def addNote(note)
+    #! Raise error
+    raise if !note.respond_to?(:to_i)
+    @notes << note.to_i
+  end
+```
+
+Result :
+
+![raise exception without message](./media/raise-1.png)
+
+Add error message
+
+```rb
+  def addNote(note)
+    #! Raise error
+    raise "Note is not an integer" if !note.respond_to?(:to_i)
+    @notes << note.to_i
+  end
+```
+
+Result :
+![raise exception without message](./media/raise-2.png)
+
+Add error message and the type
+
+```rb
+  def addNote(note)
+    #! Raise error
+    raise ArgumentError, "Note is not an integer" if !note.respond_to?(:to_i)
+    @notes << note.to_i
+  end
+```
+
+Result :
+![raise exception without message](./media/raise-3.png)
+
+Add error message and the type and capture the error
+
+```rb
+  def addNote(note)
+    #! Raise error
+    raise ArgumentError, "Note is not an integer" if !note.respond_to?(:to_i)
+    @notes << note.to_i
+  end
+
+  begin
+  student_2.addNote([1, 2, 25])
+    # rescue Exception => capture all exceptions
+    rescue ArgumentError # => capture exception with given name
+  puts "Error: Cannot add note!"
+end
+```
+
+Result :
+![raise exception without message](./media/raise.gif)
+
+Add error message and the type and
+
+```rb
+#! CREATE ERRORS
+# GOOD PRACTICE to capture all errors
+class Error < RuntimeError
+end
+
+# Create custom type error
+class NoteError < Error
+  # define the message
+  def initialize(msg = "Error: Cannot add note!")
+    super
+  end
+end
+
+begin # start to check for errors
+
+  student_2.addNote([1, 2, 25])
+
+  # rescue Exception => capture exceptions
+rescue NoteError => error # => capture exception with given name
+  puts error.to_s
+# you can add multiple "rescue" statements
+
+ensure
+  puts "End of raised exception"
+end
+```
+
 ## Tips
 
 A variable is considered locally accessible only. Not realy a good practice.
@@ -368,8 +599,6 @@ person = Person.new("John")
 
 person.sayHi
 ```
-
-## Useful resources
 
 ---
 

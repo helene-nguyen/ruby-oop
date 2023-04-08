@@ -8,6 +8,8 @@ class Student
   end
 
   def addNote(note)
+    #! Raise error
+    raise NoteError if !note.respond_to?(:to_i)
     @notes << note.to_i
   end
 
@@ -46,3 +48,26 @@ student_2.addNote(19)
 
 # create a comparison method
 puts student_1 > student_2
+
+#! CREATE ERRORS
+# GOOD PRACTICE to capture all errors
+class Error < RuntimeError
+end
+
+# Create custom type error
+class NoteError < Error
+  # define the message
+  def initialize(msg = "Error: Cannot add note!")
+    super
+  end
+end
+
+begin
+  student_2.addNote([1, 2, 25])
+  # student_2.addNote()
+  # rescue Exception => capture all exceptions
+rescue NoteError => error # => capture exception with given name
+  puts error.to_s
+ensure
+  puts "End of raised exception"
+end
