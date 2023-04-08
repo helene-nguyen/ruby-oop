@@ -9,12 +9,11 @@ module A
 end
 
 class C
-
   # get all methods of module A, available
-  extend A
+  # extend A
 end
 
-C.demo("Bilbo")
+# C.demo("Bilbo")
 
 new_c = C.new
 # add this keyword to get the method of module A
