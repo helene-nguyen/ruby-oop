@@ -43,7 +43,16 @@ Hope it can help :)
 ## Folder structure
 
 ```sh
-
+├── Makefile
+├── README.md
+└── src
+   ├── class.rb
+   ├── examples
+   |  ├── example_1.rb
+   |  ├── example_2.rb
+   |  ├── example_3.rb
+   |  └── example_4.rb
+   └── inheritance.rb
 ```
 
 ## Requirements
