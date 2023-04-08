@@ -253,6 +253,20 @@ student_2.addNote(19)
 puts student_1 > student_2
 ```
 
+- Inheritance
+
+```rb
+class Children < Parent
+  def getParentMethod
+    puts "The parent method is: #{parentMethod}"
+  end
+end
+
+children = Children.new
+
+children.getParentMethod
+```
+
 ## Tips
 
 A variable is considered locally accessible only. Not realy a good practice.
